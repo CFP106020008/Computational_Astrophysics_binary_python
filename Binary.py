@@ -17,13 +17,14 @@ t = 0
 #Functions
 
 #Stars
+Star_list = []
 M1 = PhysicsBody(initPosx=0,initPosy=0,initPosz=0,
                  initvelx=0,initvely=0,initvelz=0,mass=1*c.Msun)
+Star_list.append(M1)
 
 M2 = PhysicsBody(initPosx=1*c.au,initPosy=0,initPosz=0,
                  initvelx=0,initvely=3e6,initvelz=0,mass=1*c.Mearth)
-
-Star_list = [M1,M2]
+Star_list.append(M2)
 
 #Main Code
 while t<tmax:
