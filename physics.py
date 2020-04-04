@@ -61,28 +61,25 @@ class PhysicsBody:
             return dfdt
 
         fout = self.rk2(dt,fin,derive)
-        self.posx = fout[0]
-        self.posy = fout[1]
-        self.posz = fout[2]
-        self.velx = fout[3]
-        self.vely = fout[4]
-        self.velz = fout[5]
-        
+        self.set_info(fout)
+
         return
         
     def rk2(self,dt,fin,derive):
         dfdt = derive(fin)
         k1 = dfdt * dt
         fstar = fin+k1
-        self.posx = fstar[0]
-        self.posy = fstar[1]
-        self.posz = fstar[2]
-        self.velx = fstar[3]
-        self.vely = fstar[4]
-        self.velz = fstar[5]
+        self.set_info(fstar)
         k2 = dt * derive(fin + k1)
-        #dfdt = derive(fstar)
-        #fout = fstar + dfdt * dt
         fout = fin + 0.5 * (k1 + k2)
         return fout
+
+    def set_info(self,In):
+        self.posx = In[0]
+        self.posy = In[1]
+        self.posz = In[2]
+        self.velx = In[3]
+        self.vely = In[4]
+        self.velz = In[5]
+        return
 

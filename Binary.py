@@ -26,19 +26,27 @@ t = 0
 #Stars
 m1 = 1 * c.Msun
 m2 = 2 * c.Msun
-r = 1.0 * c.au
+r = 3.0 * c.au
 
 Star_list = []
 
-M1 = PhysicsBody(initPosx=0,initPosy=0,initPosz=0,
-                 initvely=(c.G*m2/r*m2/(m1+m2))**0.5,
-                 initvelx=0,initvelz=0,mass=1*c.Msun)
+M1 = PhysicsBody(initPosx= 0,
+                 initPosy= 0,
+                 initPosz= 0,
+                 initvelx= 0,
+                 initvely= (c.G*m2**2/r/(m1+m2))**0.5,
+                 initvelz= 0,
+                 mass    = 1*c.Msun)
 
 Star_list.append(M1)
 
-M2 = PhysicsBody(initPosx=1*c.au,initPosy=0,initPosz=0,
-                 initvelx=0,initvely=-(c.G*m1/r*m1/(m1+m2))**0.5,
-                 initvelz=0,mass=2*c.Msun)
+M2 = PhysicsBody(initPosx=r,
+                 initPosy= 0,
+                 initPosz= 0,
+                 initvelx= 0,
+                 initvely= -(c.G*m1**2/r/(m1+m2))**0.5,
+                 initvelz= 0,
+                 mass    = 2*c.Msun)
 
 Star_list.append(M2)
 

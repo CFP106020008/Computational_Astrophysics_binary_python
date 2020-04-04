@@ -12,4 +12,4 @@ plt.scatter(D2[-1,0],D2[-1,1])
 
 #plt.plot(D3[:,3],D3[:,4])
 #plt.show()
-plt.savefig("Orbit.jpg")
+plt.savefig("Orbit.jpg",dpi=300)
