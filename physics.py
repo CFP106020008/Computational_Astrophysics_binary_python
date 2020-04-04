@@ -22,43 +22,40 @@ class PhysicsBody:
                
         return
 
-    def force(self):
-        F = np.ones(3)
-        def force1(self,AO):
-            if self is AO:
+    def force(self, Star_list):
+        F = np.zeros(3)
+        for i in Star_list:
+            if i is self:
                 fx1 = 0
                 fy1 = 0
                 fz1 = 0
             else:
-                radius = np.linalg.normi(np.array([(AO.posx-self.posx),(AO.posy-self.posy),(AO.posz-self.posz)]))
-                force = -c.G*self.mass*AO.mass/radius**2
-                fx1 = force*(AO.posx-self.posx)/radius
-                fy1 = force*(AO.posy-self.posy)/radius
-                fz1 = force*(AO.posz-self.posz)/radius
-            return np.array([fx1,fy1,fz1])
-        for i in Star_list:
-            F += force1(i)
+                radius = np.linalg.norm(np.array([(self.posx-i.posx),(self.posy-i.posy),(self.posz-i.posz)]))
+                force = -c.G*self.mass*i.mass/radius**2
+                fx1 = force*(self.posx-i.posx)/radius
+                fy1 = force*(self.posy-i.posy)/radius
+                fz1 = force*(self.posz-i.posz)/radius
+            F += np.array([fx1,fy1,fz1])
 
         return F
 
-    def update(self,dt = 0.01):
+    def update(self,dt,Star_list):
         x = self.posx
         y = self.posy
         z = self.posz
         velx = self.velx
         vely = self.vely
         velz = self.velz
-        mass = self.mass
 
-        fin = np.array([x,y,z,velx,vely,velz,mass])
+        fin = np.array([x,y,z,velx,vely,velz])
 
         def derive(fin):
             dfdt0 = fin[3]
             dfdt1 = fin[4]
             dfdt2 = fin[5]
-            dfdt3 = self.force()[0]/self.mass
-            dfdt4 = self.force()[1]/self.mass
-            dfdt5 = self.force()[2]/self.mass
+            dfdt3 = self.force(Star_list)[0]/self.mass
+            dfdt4 = self.force(Star_list)[1]/self.mass
+            dfdt5 = self.force(Star_list)[2]/self.mass
 
             dfdt = np.array([dfdt0,dfdt1,dfdt2,dfdt3,dfdt4,dfdt5])
             return dfdt
@@ -69,7 +66,7 @@ class PhysicsBody:
         self.posz = fout[2]
         self.velx = fout[3]
         self.vely = fout[4]
-        self.vlez = fout[5]
+        self.velz = fout[5]
         
         return
         
