@@ -66,11 +66,10 @@ class PhysicsBody:
         return
         
     def rk2(self,dt,fin,derive):
-        dfdt = derive(fin)
-        k1 = dfdt * dt
+        k1 = derive(fin) * dt
         fstar = fin+k1
         self.set_info(fstar)
-        k2 = dt * derive(fin + k1)
+        k2 = derive(fstar) * dt
         fout = fin + 0.5 * (k1 + k2)
         return fout
 
